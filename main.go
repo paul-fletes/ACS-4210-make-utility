@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/logrusorgru/aurora"
 )
 
 // LoadDictionary loads words from the system's dictionary into a map
@@ -20,7 +22,7 @@ func LoadDictionary() (map[string]bool, error) {
 
 	scanner := bufio.NewScanner(strings.NewReader(string(output)))
 	for scanner.Scan() {
-		word := scanner.Text()
+		word := strings.ToLower(scanner.Text())
 		dictionary[word] = true
 	}
 
@@ -36,7 +38,7 @@ func main() {
 	}
 
 	// Read the file
-	file, err := os.Open("sample-input.txt")
+	file, err := os.Open("sample-correct-text.txt")
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
@@ -45,6 +47,9 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
+	// Instantiate colorizer
+	colorizer := aurora.NewAurora(true)
+
 	// Loop through each line in the file
 	lineNumber := 0
 	for scanner.Scan() {
@@ -52,11 +57,24 @@ func main() {
 		line := scanner.Text()
 		words := strings.Fields(line) // Split the line into words
 
+		for i, word := range words {
+			words[i] = strings.ToLower(word)
+		}
+
+		// Track misspellings
+		misspellingsFound := false
+
 		// Check each word for misspellings
 		for _, word := range words {
 			if !dictionary[word] {
-				fmt.Printf("Misspelled word '%s' found at line %d\n", word, lineNumber)
+				fmt.Printf("%s word '%s' found at line %d\n", colorizer.BgBrightRed("Misspelling:"), colorizer.Red(word), lineNumber)
+				misspellingsFound = true
 			}
+		}
+
+		// If no misspellings were found in the current line, print a message
+		if !misspellingsFound {
+			fmt.Printf("%s No misspellings detected in line %d\n", colorizer.BgBrightGreen("Clear:"), lineNumber)
 		}
 	}
 
