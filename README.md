@@ -38,10 +38,13 @@ Once the package is installed, you can use the spell check utility as follows:
 go run main.go
 ```
 
-3. The utility will read the text file, perform a spell check, and display any misspelled words along with their line numbers.
+3. The utility will read the text file, perform a spell check, and display any misspelled words along with their line numbers.<br>
+<img src="assets/misspelling.png" alt="misspelling-output" width="400"/>
 
 
-4. If no misspellings are found, it will display a message indicating that no misspellings were detected.
+4. If no misspellings are found, it will display a message indicating that no misspellings were detected.<br>
+<img src="assets/clear.png" alt="clear-output" width="400"/>
 
-Feel free to customize the utility to suit your specific requirements!
+
+Feel free to customize the spell checker to suit your specific requirements!
 
