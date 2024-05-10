@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/paul-fletes/ACS-4210-make-utility)](https://goreportcard.com/report/github.com/paul-fletes/ACS-4210-make-utility)
+
 # ACS-4210-make-utility
 ACS-4210 Final assignment implementing knowledge of Go to create a utility package.
 
